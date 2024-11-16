@@ -20,9 +20,9 @@ const TabIcon = ({ icon, color, name, focused }) => {
 const TabsLayout = () => {
   return (
     <>
-        <Tabs>
+        <Tabs className="bg-gradient-to-r ">
             <Tabs.Screen 
-            name="home"
+            name="MainMenu"
             options={
                 {
                     title: '',
@@ -30,6 +30,74 @@ const TabsLayout = () => {
                     tabBarIcon: ({ color, focused}) => (
                         <TabIcon
                             icon = {icons.home}
+                            color = {color}
+                            name = "Home"
+                            focused={focused}
+                        />
+                    )
+                }
+            }
+            />
+            <Tabs.Screen 
+            name="Schedule"
+            options={
+                {
+                    title: '',
+                    headerShown: false,
+                    tabBarIcon: ({ color, focused}) => (
+                        <TabIcon
+                            icon = {icons.calendar}
+                            color = {color}
+                            name = "Home"
+                            focused={focused}
+                        />
+                    )
+                }
+            }
+            />
+            <Tabs.Screen 
+            name="ChatScreen"
+            options={
+                {
+                    title: '',
+                    headerShown: false,
+                    tabBarIcon: ({ color, focused}) => (
+                        <TabIcon
+                            icon = {icons.messages}
+                            color = {color}
+                            name = "Home"
+                            focused={focused}
+                        />
+                    )
+                }
+            }
+            />
+            <Tabs.Screen 
+            name="PersonalInfoScreen"
+            options={
+                {
+                    title: '',
+                    headerShown: false,
+                    tabBarIcon: ({ color, focused}) => (
+                        <TabIcon
+                            icon = {icons.profile}
+                            color = {color}
+                            name = "profile"
+                            focused={focused}
+                        />
+                    )
+                }
+            }
+            />
+            <Tabs.Screen 
+            name="HomeScreen"
+            options={
+                {
+                    title: '',
+                    headerShown: false,
+                    tabBarIcon: ({ color, focused}) => (
+                        <TabIcon
+                            icon = {icons.bookmark}
                             color = {color}
                             name = "Home"
                             focused={focused}
