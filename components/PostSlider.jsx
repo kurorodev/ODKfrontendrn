@@ -4,17 +4,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowWidth = Dimensions.get('window').width;
 
-const PostItem = ({ title, image }) => (
-  <View style={styles.postItem}>
-    <Image
-      source={{ uri: image }}
-      style={styles.postImage}
-      accessible={true}
-      accessibilityLabel={`Image for ${title}`}
-    />
-    <Text style={styles.postTitle}>{title}</Text>
-  </View>
-);
+const PostItem = ({ title, image }) => {
+  // Check if image is defined before using startsWith
+  const imageSource = image && image.startsWith('data:') ? image : `data:image/png;base64,${image}`;
+
+  return (
+    <View style={styles.postItem}>
+      {image && (
+        <Image
+          source={{ uri: imageSource }} // Use the data URI as the source
+          style={styles.postImage}
+          accessible={true}
+          accessibilityLabel={`Image for ${title}`}
+        />
+      )}
+      <Text style={styles.postTitle}>{title}</Text>
+    </View>
+  );
+};
 
 const PostSlider = () => {
   const [posts, setPosts] = useState([]); // State to hold posts
@@ -23,29 +30,30 @@ const PostSlider = () => {
 
   const fetchPosts = async () => {
     try {
-        const response = await fetch('http://10.0.2.2:8010/communities/news', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${await AsyncStorage.getItem('jwtToken')}`,
-            },
-        });
+      const response = await fetch('http://10.0.2.2:8010/communities/news', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${await AsyncStorage.getItem('jwtToken')}`,
+        },
+      });
 
-        const textData = await response.text(); // Read response as text for debugging
-        console.log("Raw response:", textData); // Log raw response
+      const textData = await response.text(); // Read response as text for debugging
+      console.log("Raw response:", textData); // Log raw response
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}, body: ${textData}`);
-        }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}, body: ${textData}`);
+      }
 
-        const data = JSON.parse(textData); // Parse JSON only if OK
-        setPosts(data); // Update state with fetched posts
+      const data = JSON.parse(textData); // Parse JSON only if OK
+      console.log("Parsed data:", data); // Log parsed data
+      setPosts(data); // Update state with fetched posts
     } catch (error) {
-        console.error('Error fetching posts:', error);
-        setError(error.message); // Set error message
+      console.error('Error fetching posts:', error);
+      setError(error.message); // Set error message
     } finally {
-        setLoading(false); // Set loading to false after fetching
+      setLoading(false); // Set loading to false after fetching
     }
-};
+  };
 
   useEffect(() => {
     fetchPosts(); // Fetch posts on component mount
@@ -65,9 +73,12 @@ const PostSlider = () => {
       <FlatList
         data={posts}
         renderItem={({ item }) => (
-          <PostItem title={item.Data.title} image={item.Files[0]?.url} /> // Adjust based on your data structure
+          <PostItem 
+            title={item.Data?.title || "No Title"} 
+            image={item.Files && item.Files.length > 0 ? item.Files[0].url : null} 
+          />
         )}
-        keyExtractor={item => item.Data.id.toString()} // Ensure key is a string
+        keyExtractor={(item) => item.Data?.id?.toString() || Math.random().toString()} 
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.sliderContent}
