@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 
-function InfoCard({ title, icon, arrowIcon, backgroundColor }) {
+function InfoCard({ title, icon, arrowIcon, backgroundColor, textColor }) {
   return (
     <View style={[styles.cardContainer, { backgroundColor }]}>
-      <Text style={styles.cardTitle}>{title}</Text>
+      <Text style={[styles.cardTitle, { color: textColor }]}>{title}</Text>
       <View style={styles.iconContainer}>
         <Image
           resizeMode="contain"
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardTitle: {
-    color: 'rgba(218, 230, 243, 1)',
     fontSize: 14,
     fontFamily: 'Montserrat, sans-serif',
     fontWeight: '900',

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EXPO_PUBLIC_TCPIP } from '@env';
+
 
 const handleGigachat = async (userInput, setMessages) => {
   try {
@@ -8,7 +10,7 @@ const handleGigachat = async (userInput, setMessages) => {
     const token = await AsyncStorage.getItem('jwtToken');
 
     // Отправляем запрос с токеном в заголовке
-    const response = await fetch('http://10.0.2.2:8000/gigachat/?user_input=' + encodeURIComponent(userInput), {
+    const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/gigachat/?user_input=` + encodeURIComponent(userInput), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

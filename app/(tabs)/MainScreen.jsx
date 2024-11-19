@@ -14,7 +14,6 @@ const MainScreen = () => {
         <Header />
         <EventBanner />
         <PostSlider /> 
-        <Text>Static Text Below Post Slider</Text>
       </ScrollView>
     </LinearGradient>
   );

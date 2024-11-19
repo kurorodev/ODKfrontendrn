@@ -7,6 +7,10 @@ import InputField from '../components/InputField';
 import Button from '../components/Button';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EXPO_PUBLIC_TCPIP } from '@env';
+
+
+const ipconfig = process.env.TCP_IP;
 
 const LoginRegistrationScreen = () => {
 
@@ -31,7 +35,7 @@ const LoginRegistrationScreen = () => {
     }
     formBody = formBody.join("&");
     
-     const response = await fetch(`http://10.0.2.2:8000/token`, {
+     const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'

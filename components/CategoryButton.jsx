@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 
 const categories = [
-  { id: 1, title: 'Заказать справку', },
-  { id: 2, title: 'Обучение', },
-  { id: 3, title: '3D-тур', },
-  { id: 4, title: 'Навигатор', },
-  { id: 5, title: 'Инфо', },
-  { id: 6, title: 'Сервисы', }
+  { id: 1, title: 'Заказать справку' },
+  { id: 2, title: 'Обучение' },
+  { id: 3, title: '3D-тур' },
+  { id: 4, title: 'Навигатор' },
+  { id: 5, title: 'Инфо' },
+  { id: 6, title: 'Сервисы' }
 ];
 
 function CategoryButton({ title, icon, style, onPress }) {
@@ -24,7 +24,9 @@ function CategoryButton({ title, icon, style, onPress }) {
         resizeMode="contain"
         accessibilityLabel={`Иконка ${title}`}
       />
-    <Text style={[styles.title, (title === 'Заказать справку' || title === 'Обучение') && {color: '#FFFFFF'}]}>{title}</Text>
+      <Text style={[styles.title, (title === 'Заказать справку' || title === 'Обучение') && { color: '#152641' }]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    color: 'rgba(255, 255, 255, 1)',
+    color: 'rgba(255, 255, 255, 1)', // Цвет по умолчанию
     textAlign: 'center',
     fontWeight: '700',
   },

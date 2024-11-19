@@ -4,6 +4,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { Redirect, router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EXPO_PUBLIC_TCPIP } from '@env';
+
+
+const ipconfig = process.env.TCP_IP;
 
 const WelcomeScreen = () => {
 
@@ -13,7 +17,7 @@ const WelcomeScreen = () => {
         const token = await AsyncStorage.getItem('jwtToken');
 
         // Отправляем запрос с токеном в заголовке
-        const response = await fetch('http://10.0.2.2:8000/verify-token', {
+        const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/verify-token`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -61,7 +65,7 @@ const WelcomeScreen = () => {
             accessibilityLabel="ODK Kuznetov logo"
           />
           <View style={styles.welcomeTextContainer}>
-            <Text style={styles.welcomeText}>Мы рады, что вы с нами!</Text>
+            <Text style={styles.welcomeText}>Создаем движение, конструируем будущее!</Text>
           </View>
           <View style={styles.companyNameContainer}>
             <Text style={styles.companyName}>ОДК Кузнецов</Text>

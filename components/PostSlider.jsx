@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image, FlatList, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EXPO_PUBLIC_TCPIP } from '@env';
+
+
+const ipconfig = process.env.TCP_IP;
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -29,7 +33,7 @@ const PostSlider = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://10.0.2.2:8010/communities/news', {
+      const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8010/communities/news`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${await AsyncStorage.getItem('jwtToken')}`,

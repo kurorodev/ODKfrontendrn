@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput, Image, ScrollView, Button } from 'react-native';
+import { View, StyleSheet, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import CategoryButton from '../../components/CategoryButton';
@@ -15,8 +15,6 @@ const categories = [
 ];
 
 function HomeScreen() {
-  
-
   const navigation = useNavigation();
 
   const handleCategoryPress = (screen) => {
@@ -25,14 +23,14 @@ function HomeScreen() {
 
   return (
     <LinearGradient colors={['#162641', '#6081B2', '#B9D7F4', '#FFFFFF']}
-    locations={[0.06, 0.28, 0.62, 0.92]}
-    style={styles.container}>
+      locations={[0.06, 0.28, 0.62, 0.92]}
+      style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>GIGACHAT</Text>
-          <View style={styles.chatBotButton}>
-            <Button onPress={() => router.push('GigaChat')} title='Перейти в чат бот' style={styles.chatBotButton}></Button>
-            </View>
+          <TouchableOpacity style={styles.chatBotButton} onPress={() => router.push('GigaChat')}>
+            <Text style={styles.chatBotButtonText}>Перейти в чат бот</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.categoryGrid}>
           {categories.map((category, index) => (
@@ -54,7 +52,6 @@ function HomeScreen() {
     </LinearGradient>
   );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -85,25 +82,18 @@ const styles = StyleSheet.create({
       lineHeight: 38.4,
       fontWeight: '700',
     },
-    searchBar: {
-      flexDirection: 'row',
-      alignItems: 'center',
+    chatBotButton: {
       borderRadius: 20,
-      marginTop: 9,
-      paddingLeft: 62,
-      paddingRight: 15,
-      paddingVertical: 12,
-      backgroundColor: '#C5D8EC',
+      backgroundColor: '#C5D8EC', // Устанавливаем цвет фона кнопки
+      paddingVertical: 10, // Отступ по вертикали
+      paddingHorizontal: 20, // Отступ по горизонтали
+      marginTop: 10, // Отступ сверху
     },
-    searchInput: {
-      flex: 1,
-      fontSize: 14,
-      color: 'rgba(21, 38, 64, 1)',
-    },
-    searchIcon: {
-      width: 35,
-      height: 35,
-      marginLeft: 28,
+    chatBotButtonText: {
+      color: '#152640', // Цвет текста кнопки
+      fontSize: 16,
+      fontWeight: '600',
+      textAlign: 'center',
     },
     categoryGrid: {
       flexDirection: 'row',
@@ -115,21 +105,15 @@ const styles = StyleSheet.create({
       width: '48%',
       marginBottom: 20,
     },
-
     lightButton: {
       backgroundColor: '#E9F2FF',
-
     },
     whiteButton: {
       backgroundColor: '#394C6B',
     },
     blueButton: {
       backgroundColor: '#152640',
-    },
-    chatBotButton: {
-      borderRadius: 20,
     }
-  });
+});
   
-  export default HomeScreen;
-  
+export default HomeScreen;

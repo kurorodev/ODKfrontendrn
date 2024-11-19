@@ -5,11 +5,14 @@ import Header from '../../components/PersonalHeader';
 import Button from '../../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import { EXPO_PUBLIC_TCPIP } from '@env';
+
 
 const handleLogout = async () => {
   try {
       // Отправляем запрос на выход
-      const response = await fetch('http://10.0.2.2:8000/logout/', {
+      const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/logout/`, {
           method: 'POST',
           headers: {
               'Authorization': `Bearer ${await AsyncStorage.getItem('jwtToken')}`,
@@ -69,7 +72,7 @@ function PersonalInfoScreen() {
     try {
       const token = await AsyncStorage.getItem('jwtToken'); // Получаем токен из AsyncStorage
 
-      const response = await fetch('http://10.0.2.2:8000/user-info/', {
+      const response = await fetch('http://192.168.1.7:8000/user-info/', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`, // Используем правильный синтаксис для интерполяции
@@ -104,6 +107,8 @@ function PersonalInfoScreen() {
   }, []); // Пустой массив зависимостей означает, что этот эффект выполнится только один раз при монтировании компонента
 
   return (
+    <LinearGradient colors={['#162641', '#6081B2', '#B9D7F4', '#FFFFFF']}
+    locations={[0.06, 0.28, 0.62, 0.92]}>
     <ScrollView>
     <View style={styles.container}>
       <Header />
@@ -133,6 +138,7 @@ function PersonalInfoScreen() {
       <Button onPress={handleLogout}><Text textColor={"#000000"}>Выйти из профиля</Text></Button>
     </View>
     </ScrollView>
+    </LinearGradient>
   );
 }
 
