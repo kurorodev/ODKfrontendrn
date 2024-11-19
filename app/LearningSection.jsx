@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import CourseCard from '../components/CourseCard';
 
 const coursesData = [
@@ -10,12 +10,14 @@ const coursesData = [
 
 function LearningSection() {
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>Обучение</Text>
       {coursesData.map((course, index) => (
         <CourseCard key={index} title={course.title} imageUri={course.imageUri} />
       ))}
     </View>
+    </ScrollView>
   );
 }
 

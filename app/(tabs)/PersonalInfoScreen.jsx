@@ -1,8 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, StyleSheet, Image, Text, ImageBackground, ScrollView } from 'react-native';
 import InfoCard from '../../components/PersonalInfoCard';
 import Header from '../../components/PersonalHeader';
-import DocumentsSection from '../../components/DocumentsSection';
+import Button from '../../components/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
+
+const handleLogout = async () => {
+  try {
+      // Отправляем запрос на выход
+      const response = await fetch('http://10.0.2.2:8000/logout/', {
+          method: 'POST',
+          headers: {
+              'Authorization': `Bearer ${await AsyncStorage.getItem('jwtToken')}`,
+              'Content-Type': 'application/json',
+          },
+      });
+
+      if (response.ok) {
+          // Удаляем токен из AsyncStorage
+          router.push("LoginRegistrationScreen")
+          await AsyncStorage.removeItem('jwtToken');
+          console.log("Successfully logged out");
+          // Здесь можно перенаправить пользователя на экран входа или выполнить другую логику
+      } else {
+          console.error("Logout failed:", await response.json());
+      }
+  } catch (error) {
+      console.error('Error during logout:', error);
+  }
+};
+
+
 
 const personalInfoData = [
   {
@@ -33,6 +62,47 @@ const personalInfoData = [
 ];
 
 function PersonalInfoScreen() {
+
+  const [userInfo, setUserInfo] = useState(null); // Состояние для хранения информации о пользователе
+
+  const getInformation = async () => {
+    try {
+      const token = await AsyncStorage.getItem('jwtToken'); // Получаем токен из AsyncStorage
+
+      const response = await fetch('http://10.0.2.2:8000/user-info/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Используем правильный синтаксис для интерполяции
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json(); // Преобразуем ответ в JSON
+
+      if (response.ok) {
+        // Если запрос успешен, возвращаем данные
+        return data; 
+      } else {
+        console.error("Request failed:", data);
+        return null; // Возвращаем null в случае ошибки
+      }
+    } catch (error) {
+      console.error('Error fetching user information:', error);
+      return null; // Возвращаем null в случае ошибки
+    }
+  };
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const info = await getInformation(); // Ждем результат выполнения функции
+      if (info) {
+        setUserInfo(info); // Сохраняем информацию о пользователе в состоянии
+      }
+    };
+
+    fetchUserInfo(); // Вызываем функцию получения информации о пользователе
+  }, []); // Пустой массив зависимостей означает, что этот эффект выполнится только один раз при монтировании компонента
+
   return (
     <ScrollView>
     <View style={styles.container}>
@@ -42,7 +112,11 @@ function PersonalInfoScreen() {
         source={{ uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/c83490e2d4809570ed8305f1cb422050139c555a982a5dea98478d72d4afd760?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594" }}
         style={styles.personalInfoBanner}
       >
-        <Text style={styles.bannerText}>Личная информация:</Text>
+        {userInfo ? (
+            <Text style={styles.userName}>{userInfo.information}</Text> // Отображаем имя пользователя
+          ) : (
+            <Text style={styles.userName}>Loading...</Text> // Показываем загрузку пока данные не получены
+          )}
       </ImageBackground>
       {personalInfoData.map((item, index) => (
         <InfoCard
@@ -56,6 +130,7 @@ function PersonalInfoScreen() {
           }
         />
       ))}
+      <Button onPress={handleLogout}><Text textColor={"#000000"}>Выйти из профиля</Text></Button>
     </View>
     </ScrollView>
   );

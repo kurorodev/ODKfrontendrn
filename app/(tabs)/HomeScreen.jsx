@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput, Image, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Image, ScrollView, Button } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import CategoryButton from '../../components/CategoryButton';
+import { router } from 'expo-router';
 
 const categories = [
   { id: 1, title: 'Заказать справку', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/4a0b6282be994a9c30f38c41604ba91e4d52b759436ee4a11ff0b8d550ba8b4f?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e', screen: "SpravkaSelectionScreen"},
@@ -14,6 +15,8 @@ const categories = [
 ];
 
 function HomeScreen() {
+  
+
   const navigation = useNavigation();
 
   const handleCategoryPress = (screen) => {
@@ -21,23 +24,15 @@ function HomeScreen() {
   };
 
   return (
-    <LinearGradient colors={['#0000FF', '#FFFFFF']} style={styles.container}>
+    <LinearGradient colors={['#162641', '#6081B2', '#B9D7F4', '#FFFFFF']}
+    locations={[0.06, 0.28, 0.62, 0.92]}
+    style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Иван, чем могу помочь?</Text>
-          <View style={styles.searchBar}>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Введите"
-              placeholderTextColor="rgba(21, 38, 64, 0.74)"
-              accessibilityLabel="Поле поиска"
-            />
-            <Image
-              source={{ uri: 'https://cdn.builder.io/api/v1/image/assets/TEMP/54175df19220396b9b82fb3fa337543b54e01dfca5929e4423c7fc6673f625d4?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e' }}
-              style={styles.searchIcon}
-              accessibilityLabel="Иконка поиска"
-            />
-          </View>
+          <Text style={styles.headerTitle}>GIGACHAT</Text>
+          <View style={styles.chatBotButton}>
+            <Button onPress={() => router.push('GigaChat')} title='Перейти в чат бот' style={styles.chatBotButton}></Button>
+            </View>
         </View>
         <View style={styles.categoryGrid}>
           {categories.map((category, index) => (
@@ -80,7 +75,9 @@ const styles = StyleSheet.create({
       width: '100%',
       paddingHorizontal: 29,
       paddingVertical: 26,
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     headerTitle: {
       color: '#152640',
@@ -129,6 +126,9 @@ const styles = StyleSheet.create({
     blueButton: {
       backgroundColor: '#152640',
     },
+    chatBotButton: {
+      borderRadius: 20,
+    }
   });
   
   export default HomeScreen;

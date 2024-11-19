@@ -22,11 +22,12 @@ const TabsLayout = () => {
     <>
         <Tabs className="bg-gradient-to-r ">
             <Tabs.Screen 
-            name="MainMenu"
+            name="MainScreen"
             options={
                 {
                     title: '',
                     headerShown: false,
+                    headerLeft:null,
                     tabBarIcon: ({ color, focused}) => (
                         <TabIcon
                             icon = {icons.home}

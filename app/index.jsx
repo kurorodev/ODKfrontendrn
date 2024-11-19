@@ -3,12 +3,43 @@ import { View, StyleSheet, Image, Text, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { Redirect, router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeScreen = () => {
+
+  const checkToken = async () => {
+    try {
+        // Получаем токен из AsyncStorage
+        const token = await AsyncStorage.getItem('jwtToken');
+
+        // Отправляем запрос с токеном в заголовке
+        const response = await fetch('http://10.0.2.2:8000/verify-token', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            router.push("(tabs)/MainScreen");
+            console.log("Response Data:", data);
+            // Обработка успешного ответа
+        } else {
+            console.error(data.detail);
+        }
+    } catch (error) {
+        console.error('Error during request:', error);
+    }
+};
+    
   const navigation = useNavigation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      checkToken();
       router.push('/LoginRegistrationScreen');
     }, 3000);
 
@@ -75,5 +106,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 
 export default WelcomeScreen;
