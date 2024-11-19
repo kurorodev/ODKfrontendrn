@@ -5,12 +5,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const windowWidth = Dimensions.get('window').width;
 
 const PostItem = ({ title, image }) => {
-  // Check if image is defined before using startsWith
-  const imageSource = image && image.startsWith('data:') ? image : `data:image/png;base64,${image}`;
+  const imageSource = image ? `data:image/jpeg;base64,${image}` : null;
 
   return (
     <View style={styles.postItem}>
-      {image && (
+      {imageSource && (
         <Image
           source={{ uri: imageSource }} // Use the data URI as the source
           style={styles.postImage}
@@ -24,9 +23,9 @@ const PostItem = ({ title, image }) => {
 };
 
 const PostSlider = () => {
-  const [posts, setPosts] = useState([]); // State to hold posts
-  const [loading, setLoading] = useState(true); // State for loading status
-  const [error, setError] = useState(null); // State for error handling
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchPosts = async () => {
     try {
@@ -37,16 +36,24 @@ const PostSlider = () => {
         },
       });
 
-      const textData = await response.text(); // Read response as text for debugging
-      console.log("Raw response:", textData); // Log raw response
-
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}, body: ${textData}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = JSON.parse(textData); // Parse JSON only if OK
-      console.log("Parsed data:", data); // Log parsed data
-      setPosts(data); // Update state with fetched posts
+      const data = await response.json(); // Parse JSON directly
+      console.log("Parsed data:", data);
+
+      // Process each post to extract files
+      const enrichedPosts = data.map(post => {
+        const files = post.files; // Access files array
+        return {
+          id: post.data.id,
+          text: post.data.text,
+          image: files.length > 0 ? files[0].body : null, // Get Base64 string from body of the first file
+        };
+      });
+
+      setPosts(enrichedPosts); // Update state with enriched posts
     } catch (error) {
       console.error('Error fetching posts:', error);
       setError(error.message); // Set error message
@@ -74,11 +81,11 @@ const PostSlider = () => {
         data={posts}
         renderItem={({ item }) => (
           <PostItem 
-            title={item.Data?.title || "No Title"} 
-            image={item.Files && item.Files.length > 0 ? item.Files[0].url : null} 
+            title={item.text || "No Title"} 
+            image={item.image} 
           />
         )}
-        keyExtractor={(item) => item.Data?.id?.toString() || Math.random().toString()} 
+        keyExtractor={(item) => item.id.toString()} 
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.sliderContent}
