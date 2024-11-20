@@ -1,9 +1,13 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-function SpravkaItem({ title }) {
+
+function SpravkaItem({ title, screen, id, onClick}) {
+  
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container}
+      onPress={() => onClick(id)}>
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{title}</Text>
       </View>
@@ -15,7 +19,6 @@ function SpravkaItem({ title }) {
     </TouchableOpacity>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
