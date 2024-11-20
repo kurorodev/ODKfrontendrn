@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
   logoImage: {
     width: width * 0.3,
     height: width * 0.3,
-    marginRight: width * 0.03,
+    marginRight: width * 0.02,
+    marginLeft: width * 0.00001,
   },
   userName: {
     // fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
@@ -119,8 +120,9 @@ const styles = StyleSheet.create({
    userAdditionalInfo: {
     //  fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
      fontSize: width * 0.035,
-     color: 'rgba(100, 100, 100, 1)',
-     textAlign: 'center',
+     color: 'rgba(21, 38, 64, 1)',
+     textAlign: 'left',
+     fontWeight: '600',
    },
 });
 

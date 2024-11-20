@@ -1,17 +1,21 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 
-function OrderItem({ title }) {
+const { width } = Dimensions.get('window');
+
+function OrderItem({ title, icon }) {
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{title}</Text>
       </View>
-      <Image
-        resizeMode="contain"
-        source={{ uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/fd090dc6bfaea35a333a0838baaea63dd9164c5466bd354203f4506656ae23eb?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594" }}
-        style={styles.icon}
-      />
+      <View style={styles.iconContainer}>
+        <Image
+          resizeMode="contain"
+          source={typeof icon === 'string' ? { uri: icon } : icon} // Поддержка локальных и удаленных иконок
+          style={styles.icon}
+        />
+      </View>
     </TouchableOpacity>
   );
 }
@@ -37,11 +41,15 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: 'rgba(50, 67, 92, 1)',
     letterSpacing: 0.02,
-    textAlign: 'center',
+    textAlign: 'left',
+  },
+  iconContainer: {
+    alignItems: 'center', // Центрируем иконку по горизонтали
+    justifyContent: 'center', // Центрируем иконку по вертикали
   },
   icon: {
-    width: 8,
-    aspectRatio: 0.57,
+    width: width * 0.1, // Размер иконки в зависимости от ширины экрана
+    height: width * 0.2 * (0.57), // Высота с учетом соотношения сторон
   },
 });
 

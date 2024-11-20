@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import DocumentItem from '../components/DocumentItem';
 
 const documetsItems = [
-  { title: 'Паспорт', id: 'pasport' },
-  { title: 'ИНН', id: 'inn' },
-  { title: 'СНИЛС', id: 'snils' },
-  { title: 'Военный билет', id: 'nilet' },
-  { title: 'Книжка волонтёра', id: 'volontbook' },
-  { title: 'Договоры', id: 'dogovor' },
+  { title: 'Паспорт', id: 'pasport', icon: require('../assets/icons/pasport.png') },
+  { title: 'ИНН', id: 'inn' ,icon: require('../assets/icons/inn.png')},
+  { title: 'СНИЛС', id: 'snils' ,icon: require('../assets/icons/snils.png')},
+  { title: 'Военный билет', id: 'nilet' ,icon: require('../assets/icons/bilet.png')},
+  { title: 'Книжка волонтёра', id: 'volontbook' ,icon: require('../assets/icons/medbook.png')},
+  { title: 'Договоры', id: 'dogovor' ,icon: require('../assets/icons/dogovor.png')},
 ];
 
 function Documents() {
@@ -18,7 +18,7 @@ function Documents() {
         <Text style={styles.headerText}>Документы</Text>
       </View>
       {documetsItems.map((item) => (
-        <DocumentItem key={item.id} title={item.title} style={styles.item}/>
+        <DocumentItem key={item.id} title={item.title} icon={item.icon} style={styles.item}/>
       ))}
     </ScrollView>
   );

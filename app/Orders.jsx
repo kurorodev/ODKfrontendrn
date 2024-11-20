@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import OrderItem from '../components/OrderItem';
 
 const orderItems = [
-  { title: 'Повышение квалификации', id: 'qualify' },
-  { title: 'Запись в поликилинику', id: 'medic' },
-  { title: 'Заявка на онлайн обучение', id: 'education' },
-  { title: 'Курсы по русскому языку', id: 'russian' },
+  { title: 'Повышение квалификации', id: 'qualify', icon: require('../assets/icons/order.png')},
+  { title: 'Запись в поликилинику', id: 'medic', icon: require('../assets/icons/order.png') },
+  { title: 'Заявка на онлайн обучение', id: 'education', icon: require('../assets/icons/order.png') },
+  { title: 'Курсы по русскому языку', id: 'russian', icon: require('../assets/icons/order.png') },
 ];
 
 function Orders() {
@@ -16,7 +16,7 @@ function Orders() {
         <Text style={styles.headerText}>Заявки</Text>
       </View>
       {orderItems.map((item) => (
-        <OrderItem key={item.id} title={item.title} style={styles.item}/>
+        <OrderItem key={item.id} title={item.title} icon={item.icon} style={styles.item}/>
       ))}
     </ScrollView>
   );
