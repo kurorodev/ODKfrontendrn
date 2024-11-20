@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EXPO_PUBLIC_TCPIP } from '@env';
+import { useFonts } from 'expo-font';
 
+const { width, height } = Dimensions.get('window'); 
 
 function Header() {
-  const [userInfo, setUserInfo] = useState(null); // Состояние для хранения информации о пользователе
+  // const [fontsLoaded] = useFonts({
+  //   'Montserrat': require('../assets/fonts/Montserrat.ttf'), // Укажите путь к вашему шрифту
+  // });
+
+  // if (!fontsLoaded) {
+  //   return null; // Или индикатор загрузки
+  // }
+
+  const [userInfo, setUserInfo] = useState(null); 
 
   const getInformation = async () => {
     try {
-      const token = await AsyncStorage.getItem('jwtToken'); // Получаем токен из AsyncStorage
+      const token = await AsyncStorage.getItem('jwtToken'); 
 
       const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/user-info/`, {
         method: 'GET',
@@ -45,85 +55,73 @@ function Header() {
   }, []);
 
   return (
-    <View style={styles.headerContainer}>
-      <View style={styles.userInfoContainer}>
-        <View style={styles.userNameContainer}>
-          {userInfo ? (
-            <Text style={styles.userName}>{userInfo.firstname} {userInfo.lastname}</Text>
-          ) : (
-            <Text style={styles.userName}>Loading...</Text>
-          )}</View>
-          </View>
-          <View style={styles.InformationContainer}>
-          {userInfo && (
-            <Text style={styles.userAdditionalInfo}>{userInfo.additionalInfo}</Text> // Замените на нужное поле
-          )}</View>
-        
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        {/* Логотип */}
         <Image
-          resizeMode="cover"
-          source={{ uri: userInfo ? userInfo.avatarUrl : "https://cdn.builder.io/api/v1/image/assets/TEMP/default-avatar.png" }} // Замените на URL аватара пользователя
-          style={[styles.userAvatar, { opacity: userInfo ? 1 : 0 }]} // Убираем прозрачность при загрузке данных
+          resizeMode="contain"
+          source={{ uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/64f63265fc075c1398986b8cede7ac84a5590e59d9cea965584c3e5324b8cc05?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594" }}
+          style={styles.logoImage}
         />
-      
-      <Image
-        resizeMode="contain"
-        source={{ uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/64f63265fc075c1398986b8cede7ac84a5590e59d9cea965584c3e5324b8cc05?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594" }}
-        style={styles.logoImage}
-      />
+        <Text style={styles.userName}>
+          {userInfo ? `${userInfo.firstname} ${userInfo.lastname}` : "Loading..."}
+        </Text>
+      </View>
+
+      {/* Отображение информации о пользователе ниже */}
+      {userInfo && (
+        <View style={styles.userAdditionalInfoContainer}>
+          <Text style={styles.userAdditionalInfo}>{userInfo.information}</Text> 
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%', // Занимаем всю ширину экрана
+  },
   headerContainer: {
     zIndex: 10,
     display: 'flex',
-    flexDirection: 'row', // Располагаем элементы в строку
-    alignItems: 'center', // Центрируем по вертикали
-    //backgroundColor: 'transparent', // Убираем фон
-    paddingTop: 50,
-    paddingLeft: 23,
-    height: 200, // Задайте высоту для контейнера
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: height * 0.02,
+    paddingHorizontal: width * 0.05,
+    height: height * 0.3,
   },
   logoImage: {
-    width: 125,
-    height: 125,
-    marginLeft: 'auto', // Отодвигаем логотип вправо
-  },
-  userInfoContainer: {
-    flexDirection: 'row', // Располагаем имя и аватар в строку
-    alignItems: 'center', // Центрируем по вертикали
-    marginRight: 20, // Отступ между аватаром и логотипом
-  },
-  userNameContainer: {
-    backgroundColor: '#E9F2FF', // Возвращаем фон для имени
-    borderRadius: 20,
-    paddingHorizontal: 15, // Добавляем отступы по горизонтали
-    paddingVertical: 10, // Добавляем отступы по вертикали
-    marginRight: 10, // Отступ между именем и аватаром
-    justifyContent: 'center', // Центрируем текст по вертикали
-    alignItems: 'center', // Центрируем текст по горизонтали
-  },
-  userAvatar: {
-    width: 125,
-    height: 125,
-    borderRadius: 62.5, // Делаем аватар кругом
+    width: width * 0.3,
+    height: width * 0.3,
+    marginRight: width * 0.03,
   },
   userName: {
-    fontFamily: 'Montserrat, sans-serif',
-    fontSize: 16,
+    // fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
+    fontSize: width * 0.04,
     color: 'rgba(21, 38, 64, 1)',
     fontWeight: '600',
     letterSpacing: 0.02,
+    backgroundColor: '#E9F2FF',
+    paddingHorizontal: width * 0.02,
+    paddingVertical: height * 0.01,
+    borderRadius: 10,
+    marginRight: width * 0.05,
+   },
+   userAdditionalInfoContainer: {
+     backgroundColor: '#E9F2FF', // Фон для дополнительной информации
+     borderRadius: 10, // Закругление углов
+     paddingVertical: height * 0.02, // Вертикальные отступы
+     paddingHorizontal: width * 0.05, // Горизонтальные отступы
+     marginTop: height * 0.01, // Отступ сверху от имени пользователя
+     width: '100%', // Занимаем всю ширину
    },
    userAdditionalInfo: {
-     fontFamily: 'Montserrat, sans-serif',
-     fontSize: 14,
-     color: 'rgba(100, 100, 100, 1)', // Цвет для дополнительной информации
+    //  fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
+     fontSize: width * 0.035,
+     color: 'rgba(100, 100, 100, 1)',
+     textAlign: 'center',
    },
-   InformationContainer: {
-    backgroundColor: '#E9F2FF'
-   }
 });
 
 export default Header;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
 
 const categories = [
   { id: 1, title: 'Заказать справку' },
@@ -11,6 +12,15 @@ const categories = [
 ];
 
 function CategoryButton({ title, icon, style, onPress }) {
+
+  const [fontsLoaded] = useFonts({
+    'Montserrat': require('../assets/fonts/Montserrat.ttf'), // Укажите путь к вашему шрифту
+  });
+
+  if (!fontsLoaded) {
+    return null; // Или индикатор загрузки
+  }
+
   return (
     <TouchableOpacity
       style={[styles.button, style]}
@@ -50,6 +60,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 1)', // Цвет по умолчанию
     textAlign: 'center',
     fontWeight: '700',
+    fontFamily: 'Montserrat'
   },
 });
 

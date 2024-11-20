@@ -1,45 +1,44 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Image, Text, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Image, Text, SafeAreaView, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { Redirect, router } from 'expo-router';
+import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import { EXPO_PUBLIC_TCPIP } from '@env';
 
-
-const ipconfig = process.env.TCP_IP;
+SplashScreen.preventAutoHideAsync();
 
 const WelcomeScreen = () => {
+  const navigation = useNavigation();
+  const [fontsLoaded] = useFonts({
+    'Montserrat': require('../assets/fonts/Montserrat.ttf'), // Укажите путь к вашему шрифту
+  });
 
   const checkToken = async () => {
     try {
-        // Получаем токен из AsyncStorage
-        const token = await AsyncStorage.getItem('jwtToken');
+      const token = await AsyncStorage.getItem('jwtToken');
+      const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/verify-token`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-        // Отправляем запрос с токеном в заголовке
-        const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/verify-token`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок
-            },
-        });
+      const data = await response.json();
 
-        const data = await response.json();
-
-        if (response.ok) {
-            router.push("(tabs)/MainScreen");
-            console.log("Response Data:", data);
-            // Обработка успешного ответа
-        } else {
-            console.error(data.detail);
-        }
+      if (response.ok) {
+        router.push("(tabs)/MainScreen");
+        console.log("Response Data:", data);
+      } else {
+        console.error(data.detail);
+      }
     } catch (error) {
-        console.error('Error during request:', error);
+      console.error('Error during request:', error);
     }
-};
-    
-  const navigation = useNavigation();
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,6 +48,21 @@ const WelcomeScreen = () => {
 
     return () => clearTimeout(timer);
   }, [navigation]);
+
+  // Проверка состояния загрузки шрифтов
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ActivityIndicator size="large" color="#FFFFFF" />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,10 +79,14 @@ const WelcomeScreen = () => {
             accessibilityLabel="ODK Kuznetov logo"
           />
           <View style={styles.welcomeTextContainer}>
-            <Text style={styles.welcomeText}>Создаем движение, конструируем будущее!</Text>
+            <Text style={[styles.welcomeText, { fontFamily: 'Montserrat' }]}>
+              Создаем движение, конструируем будущее!
+            </Text>
           </View>
           <View style={styles.companyNameContainer}>
-            <Text style={styles.companyName}>ОДК Кузнецов</Text>
+            <Text style={[styles.companyName, { fontFamily: 'Montserrat' }]}>
+              ОДК Кузнецов
+            </Text>
           </View>
         </View>
       </LinearGradient>
@@ -110,6 +128,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
 
 export default WelcomeScreen;

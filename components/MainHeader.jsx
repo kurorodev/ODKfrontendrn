@@ -1,13 +1,22 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
+import { useFonts } from 'expo-font';
 
 const Header = () => {
+  const [fontsLoaded] = useFonts({
+    'Montserrat': require('../assets/fonts/Montserrat.ttf'), // Укажите путь к вашему шрифту
+  });
+
+  if (!fontsLoaded) {
+    return null; // Или индикатор загрузки
+  }
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>
         <Image
           resizeMode="contain"
-          source={{ uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/6587d083d8e3e1ee1c639bd95b49d5afd55774553058898c87fd90fe0481926d?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594" }}
+          source={require('../assets/icons/logo_main.png')}
           style={styles.logo}
           accessible={true}
           accessibilityLabel="Company logo"
@@ -37,8 +46,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     display: 'flex',
     aspectRatio: 1.39,
-    width: 80,
-    height: 80,
+    width: 150,
+    height: 150,
   },
   greetingContainer: {
     alignSelf: 'center',
@@ -47,7 +56,7 @@ const styles = StyleSheet.create({
   greeting: {
     color: 'rgba(255, 255, 255, 1)',
     fontSize: 20,
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: 'Montserrat', // Используем загруженный шрифт
     fontWeight: '700',
     textAlign: 'center',
   },

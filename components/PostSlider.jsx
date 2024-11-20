@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image, FlatList, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EXPO_PUBLIC_TCPIP } from '@env';
-
-
-const ipconfig = process.env.TCP_IP;
+import { useFonts } from 'expo-font';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -27,6 +25,14 @@ const PostItem = ({ title, image }) => {
 };
 
 const PostSlider = () => {
+  const [fontsLoaded] = useFonts({
+    'Montserrat': require('../assets/fonts/Montserrat.ttf'), // Укажите путь к вашему шрифту
+  });
+
+  if (!fontsLoaded) {
+    return null; // Или индикатор загрузки
+  }
+
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -113,6 +119,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: '#333',
     paddingLeft: 16,
+    fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
   },
   sliderContent: {
     paddingLeft: 16,
@@ -132,6 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: '#333',
+    fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
   },
 });
 

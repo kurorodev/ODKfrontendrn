@@ -1,9 +1,9 @@
 import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 
-function InfoCard({ title, iconUri, imageUri }) {
+function InfoCard({ title, iconUri, imageUri, onPress }) {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress} accessibilityRole="button">
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
       </View>
@@ -23,7 +23,7 @@ function InfoCard({ title, iconUri, imageUri }) {
           accessibilityLabel={`Image for ${title}`}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

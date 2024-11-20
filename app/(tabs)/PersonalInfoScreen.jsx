@@ -4,9 +4,11 @@ import InfoCard from '../../components/PersonalInfoCard';
 import Header from '../../components/PersonalHeader';
 import Button from '../../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { EXPO_PUBLIC_TCPIP } from '@env';
+import { useFonts } from 'expo-font';
 
 
 const handleLogout = async () => {
@@ -40,12 +42,14 @@ const personalInfoData = [
   {
     title: 'Документы',
     icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/c59d83a6ed23ce4f6521dc8eb79019a9410c941151bb2f519cc5ffe1c0405d56?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
-    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/2fd99108f37059fed95713966e3f3318d7d05eecd301aa379e1f278a7afd3338?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594'
+    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/2fd99108f37059fed95713966e3f3318d7d05eecd301aa379e1f278a7afd3338?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
+    screen: 'Documents'
   },
   {
     title: 'Задачи',
     icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/a0506222addff23c78a3cbf3d34cccf56c7e307919a52e749a07498e94cfbfe3?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
-    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f65dc80fc84f00a7f0412afe43f15d5ac2aec3d5fb55d111c1d2e69251d2f45f?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594'
+    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f65dc80fc84f00a7f0412afe43f15d5ac2aec3d5fb55d111c1d2e69251d2f45f?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
+    screen: 'Tasks'
   },
   {
     title: 'Карьерный трек',
@@ -55,56 +59,32 @@ const personalInfoData = [
   {
     title: 'Запросить справку',
     icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/d1f75ffacb47de0616c28f0dfcc10df2292f8a2691f2f56e9d1f9510f8cd09f5?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
-    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7358ea6b3046dc8324ea21eb980ddb03cd51d144d51a4234f112a4206d9e986?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594'
+    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7358ea6b3046dc8324ea21eb980ddb03cd51d144d51a4234f112a4206d9e986?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
+    screen: 'SpravkaSelectionScreen'
   },
   {
     title: 'Заявки',
     icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/0d626f9ba7cb5e6cbb5f6cfe60a5241dea55dc0e791ba0a752325ae25c3dd68a?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
-    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7358ea6b3046dc8324ea21eb980ddb03cd51d144d51a4234f112a4206d9e986?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594'
+    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7358ea6b3046dc8324ea21eb980ddb03cd51d144d51a4234f112a4206d9e986?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
+    screen: 'Orders'
   },
 ];
 
 function PersonalInfoScreen() {
 
-  const [userInfo, setUserInfo] = useState(null); // Состояние для хранения информации о пользователе
+  const [fontsLoaded] = useFonts({
+    'Montserrat': require('../../assets/fonts/Montserrat.ttf'), // Укажите путь к вашему шрифту
+  });
 
-  const getInformation = async () => {
-    try {
-      const token = await AsyncStorage.getItem('jwtToken'); // Получаем токен из AsyncStorage
+  if (!fontsLoaded) {
+    return null; // Или индикатор загрузки
+  }
 
-      const response = await fetch('http://192.168.1.7:8000/user-info/', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`, // Используем правильный синтаксис для интерполяции
-          'Content-Type': 'application/json',
-        },
-      });
+  const navigation = useNavigation();
 
-      const data = await response.json(); // Преобразуем ответ в JSON
-
-      if (response.ok) {
-        // Если запрос успешен, возвращаем данные
-        return data; 
-      } else {
-        console.error("Request failed:", data);
-        return null; // Возвращаем null в случае ошибки
-      }
-    } catch (error) {
-      console.error('Error fetching user information:', error);
-      return null; // Возвращаем null в случае ошибки
-    }
+  const handleCardPress = (screen) => {
+    navigation.navigate(screen);
   };
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      const info = await getInformation(); // Ждем результат выполнения функции
-      if (info) {
-        setUserInfo(info); // Сохраняем информацию о пользователе в состоянии
-      }
-    };
-
-    fetchUserInfo(); // Вызываем функцию получения информации о пользователе
-  }, []); // Пустой массив зависимостей означает, что этот эффект выполнится только один раз при монтировании компонента
 
   return (
     <LinearGradient colors={['#162641', '#6081B2', '#B9D7F4', '#FFFFFF']}
@@ -112,23 +92,13 @@ function PersonalInfoScreen() {
     <ScrollView>
     <View style={styles.container}>
       <Header />
-      <ImageBackground
-        resizeMode="cover"
-        source={{ uri: "https://cdn.builder.io/api/v1/image/assets/TEMP/c83490e2d4809570ed8305f1cb422050139c555a982a5dea98478d72d4afd760?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594" }}
-        style={styles.personalInfoBanner}
-      >
-        {userInfo ? (
-            <Text style={styles.userName}>{userInfo.information}</Text> // Отображаем имя пользователя
-          ) : (
-            <Text style={styles.userName}>Loading...</Text> // Показываем загрузку пока данные не получены
-          )}
-      </ImageBackground>
       {personalInfoData.map((item, index) => (
         <InfoCard
           key={index}
           title={item.title}
           icon={item.icon}
           arrowIcon={item.arrowIcon}
+          onPress={() => handleCardPress(item.screen)}
           textColor={index === 0 ? '#152640' : 'rgba(218, 230, 243, 1)'}
           backgroundColor={
             index < 1 ? '#E9F2FF' : index < 3 ? '#394C6B' : '#152640'
@@ -164,7 +134,7 @@ const styles = StyleSheet.create({
     paddingBottom: 114,
   },
   bannerText: {
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: 'Montserrat',
     fontSize: 12,
     color: 'rgba(83, 101, 126, 1)',
     fontWeight: '600',
