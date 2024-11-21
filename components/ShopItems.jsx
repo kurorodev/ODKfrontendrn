@@ -9,7 +9,7 @@ function ShopItem({id, image, text, buttonText, cost, priceIcon,onImageClick ,on
     return (
         <View style={styles.container}>
             <View>
-                <TouchableOpacity onPress={onImageClick(id)}>
+                <TouchableOpacity onPress={() => onImageClick(id)}>
                     <Image 
                     source={{ uri: image }}
                     style={styles.image}
@@ -26,7 +26,7 @@ function ShopItem({id, image, text, buttonText, cost, priceIcon,onImageClick ,on
                     />
                 </View>
             </View>
-        <TouchableOpacity style={styles.button} onPress={onAddClick(id)}>
+        <TouchableOpacity style={styles.button} onPress={() => onAddClick(id)}>
                 <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
       </View>

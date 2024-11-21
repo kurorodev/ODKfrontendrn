@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Touchable, TouchableOpacity } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
 import Title from '../../components/Title';
 import ShopItems from '../../components/ShopItems';
+import { Redirect, router } from 'expo-router';
 
+const detailsPath = "FoodDetails"
 const priceIcon = "г"
 const shopItems = [
     {id:"1", name:"Рис", mass: "200г", image: "https://img.sunfruits.ru/images/products/1/4761/659600025/%D0%A0%D0%B8%D1%81_%D0%B6%D0%B0%D1%81%D0%BC%D0%B8%D0%BD2.webp", discription : "Рис — это универсальный гарнир, который прекрасно дополняет любое блюдо. Он обладает легким вкусом и нежной текстурой, что делает его идеальным выбором для сочетания с мясом, рыбой или овощами. Рис можно готовить различными способами: варить, жарить или запекать, добавляя специи и травы для разнообразия. Наслаждайтесь его питательными свойствами и возможностью создавать множество вкусных комбинаций!"},
@@ -15,11 +16,14 @@ const shopItems = [
 ]
 
 function FoodService() {
-    const {id} = useLocalSearchParams();
+    //const {id} = useLocalSearchParams();
 
-    const handleItemPress = (itemId) => {
-        console.log(`Нажата ячейка с ID: ${itemId}`);
-    };
+    const OnImgClick = (id) =>{
+        router.push({
+            pathname: detailsPath, // путь к экрану
+            params: { id: id }, // параметры
+          });
+    }
 
     return (
         <ScrollView>
@@ -27,15 +31,15 @@ function FoodService() {
             <View style={styles.grid}>
                 {shopItems.map(item => (
                         <ShopItems 
-                            onPress={()=>handleItemPress(item.id)}
                             key={item.id}
+                            id= {item.id}
                             image={item.image}
                             text={item.name} 
                             buttonText={"+ Добавить"} 
                             cost={item.mass}
                             priceIcon= {priceIcon}
-                            onImageClick={(id)=>console.log("Image")}
-                            onAddClick={(id)=>console.log("pressed")}
+                            onImageClick={(id)=>OnImgClick(id)}
+                            onAddClick={(id)=>console.log(id)}
                         />
                 ))}
             </View>
