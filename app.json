@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "ODKfrontendrn",
     "scheme": "ODKfrontendrn",
     "slug": "ODKfrontendrn",

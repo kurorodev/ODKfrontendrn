@@ -91,10 +91,11 @@ const styles = StyleSheet.create({
       fontSize: 32,
       lineHeight: 38.4,
       fontWeight: '700',
+      fontFamily: 'Montserrat'
     },
     chatBotButton: {
       borderRadius: 20,
-      backgroundColor: '#C5D8EC', // Устанавливаем цвет фона кнопки
+      backgroundColor: '#A8E4A0', // Устанавливаем цвет фона кнопки
       paddingVertical: 10, // Отступ по вертикали
       paddingHorizontal: 20, // Отступ по горизонтали
       marginTop: 10, // Отступ сверху
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: '600',
       textAlign: 'center',
+      fontFamily: 'Montserrat'
     },
     categoryGrid: {
       flexDirection: 'row',

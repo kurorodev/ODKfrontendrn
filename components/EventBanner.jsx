@@ -51,12 +51,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 24,
     position: 'relative',
+    color: "#FFFFFF"
   },
   bannerDescription: {
     fontSize: 11,
     fontWeight: '400',
     lineHeight: 17,
     position: 'relative',
+    color: "#FFFFFF"
   },
 });
 

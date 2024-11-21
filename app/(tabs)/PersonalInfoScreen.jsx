@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, StyleSheet, Image, Text, ImageBackground, ScrollView } from 'react-native';
+import { View, StyleSheet, Image, Text, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
 import InfoCard from '../../components/PersonalInfoCard';
 import Header from '../../components/PersonalHeader';
 import Button from '../../components/Button';
@@ -57,12 +57,6 @@ const personalInfoData = [
     arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f65dc80fc84f00a7f0412afe43f15d5ac2aec3d5fb55d111c1d2e69251d2f45f?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594'
   },
   {
-    title: 'Запросить справку',
-    icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/d1f75ffacb47de0616c28f0dfcc10df2292f8a2691f2f56e9d1f9510f8cd09f5?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
-    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7358ea6b3046dc8324ea21eb980ddb03cd51d144d51a4234f112a4206d9e986?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
-    screen: 'SpravkaSelectionScreen'
-  },
-  {
     title: 'Заявки',
     icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/0d626f9ba7cb5e6cbb5f6cfe60a5241dea55dc0e791ba0a752325ae25c3dd68a?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
     arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f7358ea6b3046dc8324ea21eb980ddb03cd51d144d51a4234f112a4206d9e986?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
@@ -105,7 +99,7 @@ function PersonalInfoScreen() {
           }
         />
       ))}
-      <Button onPress={handleLogout} title={"Выйти из профиля"}></Button>
+      <TouchableOpacity style={styles.logout} onPress={handleLogout} title={"Выйти из профиля"}><Text style={styles.logoutText}>Выйти из профиля</Text></TouchableOpacity>
     </View>
     </ScrollView>
     </LinearGradient>
@@ -141,6 +135,22 @@ const styles = StyleSheet.create({
     letterSpacing: 0.01,
     backgroundColor: "E9F2FF"
   },
+  logout: {
+    backgroundColor: "#FF0000", // Red background
+    borderRadius: 25, // Rounded corners
+    paddingVertical: 10, // Vertical padding for better height
+    paddingHorizontal: 20, // Horizontal padding for better width
+    alignItems: 'center', // Center text horizontally
+    justifyContent: 'center', // Center text vertically
+    marginTop: 60, // Optional: Add some space above the button
+  },
+  logoutText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontFamily: "Montserrat, sans-serif",
+    fontWeight: "900",
+    letterSpacing: 0.02,
+  }
 });
 
 export default PersonalInfoScreen;

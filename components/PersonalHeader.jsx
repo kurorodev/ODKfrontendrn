@@ -21,7 +21,7 @@ function Header() {
     try {
       const token = await AsyncStorage.getItem('jwtToken'); 
 
-      const response = await fetch(`http://192.168.1.3:8000/user-info/`, {
+      const response = await fetch(`http://192.168.1.7:8000/user-info/`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -68,6 +68,10 @@ function Header() {
         </Text>
       </View>
 
+      <View>
+        <Text>Одк коины</Text>
+      </View>
+
       {/* Отображение информации о пользователе ниже */}
       {userInfo && (
         <View style={styles.userAdditionalInfoContainer}>
@@ -98,7 +102,7 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.00001,
   },
   userName: {
-    // fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
+    //fontFamily: 'Montserrat', // Используем загруженный шрифт здесь
     fontSize: width * 0.04,
     color: 'rgba(21, 38, 64, 1)',
     fontWeight: '600',

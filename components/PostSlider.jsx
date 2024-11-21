@@ -39,7 +39,7 @@ const PostSlider = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`http://192.168.1.3:8010/communities/news`, {
+      const response = await fetch(`http://192.168.1.7:8010/communities/news`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${await AsyncStorage.getItem('jwtToken')}`,

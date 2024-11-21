@@ -3,20 +3,26 @@ import { StyleSheet, TextInput, View, Text, FlatList, TouchableOpacity, Modal } 
 import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const WS_URL = 'ws://192.168.1.3:8001/ws';
+const WS_URL = 'ws://192.168.1.7:8001/ws';
 
 export default function ChatDialog() {
     const { chatId, chatName } = useLocalSearchParams();
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [searchModalVisible, setSearchModalVisible] = useState(false);
+    const [membersModalVisible, setMembersModalVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [members, setMembers] = useState([]);
+    const [memberCount, setMemberCount] = useState(0);
     const flatListRef = useRef(null);
     const websocket = useRef(null);
 
     useEffect(() => {
+        fetchMemberCount();
+        fetchChatMembers();
         connectWebSocket();
+
         return () => {
             if (websocket.current) {
                 websocket.current.close();
@@ -25,13 +31,35 @@ export default function ChatDialog() {
     }, []);
 
     useEffect(() => {
-        // Прокрутка вниз при изменении сообщений
         const timer = setTimeout(() => {
             flatListRef.current?.scrollToEnd({ animated: true });
-        }, 3000); // Задержка в 100 мс
+        }, 3000);
 
-        return () => clearTimeout(timer); // Очистка таймера при размонтировании
+        return () => clearTimeout(timer);
     }, [messages]);
+
+    const fetchMemberCount = async () => {
+        const token = await AsyncStorage.getItem('jwtToken');
+        const response = await fetch(`http://192.168.1.7:8001/chats/${chatId}/members/count?token=${token}`, {
+            headers: {
+                //Authorization: `Bearer ${token}`,
+            },
+        });
+        const data = await response.json();
+        //console.log(data.count)
+        setMemberCount(`Кол-во участников: ${data.count}`);
+    };
+
+    const fetchChatMembers = async () => {
+        const token = await AsyncStorage.getItem('jwtToken');
+        const response = await fetch(`http://192.168.1.7:8001/chats/${chatId}/members?token=${token}`, {
+            headers: {
+                //Authorization: `Bearer ${token}`,
+            },
+        });
+        const data = await response.json();
+        setMembers(data);
+    };
 
     const connectWebSocket = async () => {
         const token = await AsyncStorage.getItem('jwtToken');
@@ -68,8 +96,11 @@ export default function ChatDialog() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <TouchableOpacity onPress={() => setMembersModalVisible(true)}>
+                    <Text style={styles.memberCount}>{memberCount}</Text>
+                </TouchableOpacity>
                 <Text style={styles.headerText}>{chatName}</Text>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.addUserButton}
                     onPress={() => setSearchModalVisible(true)}
                 >
@@ -77,7 +108,33 @@ export default function ChatDialog() {
                 </TouchableOpacity>
             </View>
 
+            {/* Список участников */}
+            <Modal
+                visible={membersModalVisible}
+                animationType="slide"
+                transparent={true}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Chat Members</Text>
+                        <FlatList
+                            data={members}
+                            renderItem={({ item }) => (
+                                <Text style={styles.memberItem}>{item.username}</Text>
+                            )}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                        <TouchableOpacity
+                            style={styles.closeButton}
+                            onPress={() => setMembersModalVisible(false)}
+                        >
+                            <Text style={styles.closeButtonText}>Close</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
 
+            {/* Добавление пользователя */}
             <Modal
                 visible={searchModalVisible}
                 animationType="slide"
@@ -93,10 +150,10 @@ export default function ChatDialog() {
                                 if (text.length >= 2) {
                                     try {
                                         const token = await AsyncStorage.getItem('jwtToken');
-                                        const response = await fetch(`http://192.168.1.3:8001/users/search/${text}`, {
+                                        const response = await fetch(`http://192.168.1.7:8001/users/search/${text}`, {
                                             headers: {
-                                                'Authorization': `Bearer ${token}`
-                                            }
+                                                Authorization: `Bearer ${token}`,
+                                            },
                                         });
                                         const data = await response.json();
                                         setSearchResults(data);
@@ -110,22 +167,22 @@ export default function ChatDialog() {
                         <FlatList
                             data={searchResults}
                             renderItem={({ item }) => (
-                                <TouchableOpacity 
+                                <TouchableOpacity
                                     style={styles.searchResultItem}
                                     onPress={async () => {
                                         try {
                                             const token = await AsyncStorage.getItem('jwtToken');
-                                            await fetch(`http://192.168.1.3:8001/chats/${chatId}/participants/?username=${item.username}`, {
+                                            await fetch(`http://192.168.1.7:8001/chats/${chatId}/participants/?username=${item.username}`, {
                                                 method: 'POST',
                                                 headers: {
-                                                    //'Authorization': `Bearer ${token}`,
-                                                    'Content-Type': 'application/json',
+                                                    Authorization: `Bearer ${token}`,
                                                 },
-                                                //body: JSON.stringify({ username: item.username })
                                             });
                                             setSearchModalVisible(false);
                                             setSearchQuery('');
                                             setSearchResults([]);
+                                            fetchMemberCount(); // Обновляем количество участников
+                                            fetchChatMembers(); // Обновляем список участников
                                         } catch (error) {
                                             console.error('Error adding participant:', error);
                                         }
@@ -136,7 +193,7 @@ export default function ChatDialog() {
                             )}
                             keyExtractor={(item) => item.id.toString()}
                         />
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={styles.closeButton}
                             onPress={() => {
                                 setSearchModalVisible(false);
@@ -149,12 +206,12 @@ export default function ChatDialog() {
                     </View>
                 </View>
             </Modal>
-            
+
+            {/* Сообщения */}
             <FlatList
                 ref={flatListRef}
                 style={styles.messageList}
                 data={messages}
-
                 renderItem={({ item }) => (
                     <View style={styles.messageContainer}>
                         <Text style={styles.username}>{item.username}</Text>
@@ -177,10 +234,24 @@ export default function ChatDialog() {
                 </TouchableOpacity>
             </View>
         </View>
-    );
-}
-
+    );}
 const styles = StyleSheet.create({
+    memberCount: {
+        fontSize: 14,
+        color: '#007AFF',
+        fontFamily: 'Montserrat'
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    memberItem: {
+        padding: 10,
+        fontSize: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+    },
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -222,9 +293,9 @@ const styles = StyleSheet.create({
     },
     addUserButton: {
         backgroundColor: '#007AFF',
-        padding: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
         borderRadius: 8,
-        marginLeft: 10,
     },
     addUserButtonText: {
         color: 'white',
@@ -236,8 +307,11 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: '#E9F2FF',
-        padding: 15,
-        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        flexDirection: 'row', // Горизонтальное расположение элементов
+        alignItems: 'center', // Вертикальное центрирование
+        justifyContent: 'space-between', // Разделить элементы по краям
     },
     headerText: {
         fontSize: 18,

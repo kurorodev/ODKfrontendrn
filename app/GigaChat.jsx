@@ -10,7 +10,7 @@ const handleGigachat = async (userInput, setMessages) => {
     const token = await AsyncStorage.getItem('jwtToken');
 
     // Отправляем запрос с токеном в заголовке
-    const response = await fetch(`http://192.168.1.3:8000/gigachat/?user_input=` + encodeURIComponent(userInput), {
+    const response = await fetch(`http://192.168.1.7:8000/gigachat/?user_input=` + encodeURIComponent(userInput), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

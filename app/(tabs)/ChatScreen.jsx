@@ -19,7 +19,7 @@ export default function ChatListScreen() {
     const fetchChats = async () => {
         try {
             const token = await AsyncStorage.getItem('jwtToken');
-            const response = await fetch(`http://192.168.1.3:8001/chats/?token=${token}`, {
+            const response = await fetch(`http://192.168.1.7:8001/chats/?token=${token}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -40,7 +40,7 @@ export default function ChatListScreen() {
 
         try {
             const token = await AsyncStorage.getItem('jwtToken');
-            const response = await fetch(`http://192.168.1.3:8001/chats/?token=${token}`, {
+            const response = await fetch(`http://192.168.1.7:8001/chats/?token=${token}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -71,9 +71,10 @@ export default function ChatListScreen() {
     };
 
     return (
+        
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>Чаты</Text>
+                <Text style={styles.title}>Мессенджер</Text>
                 <TouchableOpacity 
                     style={styles.createButton}
                     onPress={() => setIsCreating(true)}
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
     createButtonText: {
         color: '#fff',
         fontWeight: '500',
+        fontFamily: 'Montserrat'
     },
     createChatContainer: {
         backgroundColor: '#f5f5f5',
@@ -175,6 +177,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         fontWeight: '500',
+        fontFamily: 'Montserrat'
     },
     container: {
         flex: 1,
@@ -186,10 +189,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         color: '#152640',
+        fontFamily: 'Montserrat'
     },
     chatItem: {
         padding: 15,
-        borderRadius: 10,
+        borderRadius: 20,
         backgroundColor: '#E9F2FF',
         marginBottom: 10,
     },
@@ -197,5 +201,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#152640',
         fontWeight: '500',
+        fontFamily: 'Montserrat'
     },
 });
