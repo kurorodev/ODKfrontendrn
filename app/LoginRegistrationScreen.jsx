@@ -35,7 +35,7 @@ const LoginRegistrationScreen = () => {
     }
     formBody = formBody.join("&");
     
-     const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/token`, {
+     const response = await fetch(`http://192.168.1.3:8000/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'

@@ -1,15 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import ServicesItem from '../components/ServicesItem';
+import { Redirect, router } from 'expo-router';
+import ShopService from './Services/ShopService';
 
 const servicesItem = [
-  { title: 'Поликлиника', id: '1', icon: require('../assets/icons/poliklinika.png') },
-  { title: 'Питание', id: '2', icon: require('../assets/icons/pitanie.png') },
-  { title: 'Магазин', id: '3', icon: require('../assets/icons/odezhda.png') },
-  { title: 'Игра', id: '4', icon: require('../assets/icons/igra.png') },
+  { title: 'Поликлиника', id: '1', icon: require('../assets/icons/poliklinika.png'), screen: "./Services/ClinicService" },
+  { title: 'Питание', id: '2', icon: require('../assets/icons/pitanie.png'), screen: "./Services/FoodService"},
+  { title: 'Магазин', id: '3', icon: require('../assets/icons/odezhda.png'), screen: "./Services/ShopService"},
+  { title: 'Игра', id: '4', icon: require('../assets/icons/igra.png'), screen: "./Services/GameService"},
 ];
 
 function Services() {
+  const onClick = (path, id) => {
+    router.push({
+      pathname: path, // путь к экрану
+      params: { id: id }, // параметры
+    });
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headerContainer}>
@@ -24,7 +32,7 @@ function Services() {
           backgroundColor={
             index < 1 ? '#E9F2FF' : index < 3 ? '#B9D6F4' : '#162741'
           }
-          onPress={() => console.log(`Pressed ${item.title}`)} // Обработчик нажатия
+          onPress={() => onClick(item.screen,item.id)} // Обработчик нажатия
         />
       ))}
     </ScrollView>

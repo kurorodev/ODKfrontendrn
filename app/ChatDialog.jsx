@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View, Text, FlatList, TouchableOpacity, Modal } 
 import { useLocalSearchParams } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const WS_URL = 'ws://192.168.1.7:8001/ws';
+const WS_URL = 'ws://192.168.1.3:8001/ws';
 
 export default function ChatDialog() {
     const { chatId, chatName } = useLocalSearchParams();
@@ -93,7 +93,7 @@ export default function ChatDialog() {
                                 if (text.length >= 2) {
                                     try {
                                         const token = await AsyncStorage.getItem('jwtToken');
-                                        const response = await fetch(`http://192.168.1.7:8001/users/search/${text}`, {
+                                        const response = await fetch(`http://192.168.1.3:8001/users/search/${text}`, {
                                             headers: {
                                                 'Authorization': `Bearer ${token}`
                                             }
@@ -115,7 +115,7 @@ export default function ChatDialog() {
                                     onPress={async () => {
                                         try {
                                             const token = await AsyncStorage.getItem('jwtToken');
-                                            await fetch(`http://192.168.1.7:8001/chats/${chatId}/participants/?username=${item.username}`, {
+                                            await fetch(`http://192.168.1.3:8001/chats/${chatId}/participants/?username=${item.username}`, {
                                                 method: 'POST',
                                                 headers: {
                                                     //'Authorization': `Bearer ${token}`,

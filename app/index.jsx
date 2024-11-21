@@ -19,7 +19,7 @@ const WelcomeScreen = () => {
   const checkToken = async () => {
     try {
       const token = await AsyncStorage.getItem('jwtToken');
-      const response = await fetch(`http://${EXPO_PUBLIC_TCPIP}:8000/verify-token`, {
+      const response = await fetch(`http://192.168.1.3:8000/verify-token`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     marginBottom: 53,
   },
   headerText: {
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: 'Montserrat',
     fontSize: 36,
-    fontWeight: '900',
+    fontWeight: 90,
     color: 'rgba(21, 38, 64, 1)',
     letterSpacing: 0.04,
     textAlign: 'center',

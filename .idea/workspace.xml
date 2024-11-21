@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="eb1014eb-d48e-4c86-9d83-d8fe8b1a8b3d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/ChatScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/ChatScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ChatDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/ChatDialog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/GigaChat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/GigaChat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/InformationScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/InformationScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/LoginRegistrationScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/LoginRegistrationScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SpravkaInformation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/SpravkaInformation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SpravkaSelectionScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/SpravkaSelectionScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ButtonInvert.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ButtonInvert.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/PersonalHeader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/PersonalHeader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/PostSlider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/PostSlider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SpravkaItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SpravkaItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2p5VThJoqOAC0ZuviLfCxauNWdW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/projects/gitrep/kuznecov_hack/kuznecov_react_frontend/ODKfrontendrn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eb1014eb-d48e-4c86-9d83-d8fe8b1a8b3d" name="Changes" comment="" />
+      <created>1732055943381</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732055943381</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   title: {
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: 'Montserrat',
     fontSize: 16,
-    fontWeight: '900',
+    fontWeight: 90,
     color: 'rgba(50, 67, 92, 1)',
     letterSpacing: 0.02,
     textAlign: 'center',

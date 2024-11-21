@@ -29,7 +29,9 @@ const SpravkaInformation = () => {
       <View style={styles.textContainer}>
         <Text style= {styles.mainText}>{spravka.body}</Text>
       </View>
-      <ButtonInvert title="Подать заявку" />
+      <View style={{alignSelf:"center"}}>
+        <ButtonInvert title="Подать заявку" />
+      </View>
     </View>
   </ScrollView>
   );
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     },
     mainText : {
       fontFamily: 'Montserrat',
-      fontWeight : 600,
+      fontWeight : 60,
       fontSize: 16,
       lineHeight: 19.5,
       letterSpacing: 0.1,
@@ -54,14 +56,13 @@ const styles = StyleSheet.create({
     title:{
       fontFamily : 'Montserrat',
       fontSize: 36,
-      fontWeight: 900,
+      fontWeight: 90,
       textAlign: "center",
       letterSpacing: 0.1,
       lineHeight: 43.88,
       color: "#152640"
     },
     titleView:{
-      height: 80,
       padding: 20,
       top: 5,
       alignSelf: "center",
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     spravkaInfo:{
       fontFamily : 'Montserrat',
       fontSize: 24,
-      fontWeight: 900,
+      fontWeight: 90,
       letterSpacing: 0.1,
       lineHeight: 29.26,
       color: "#32435C"

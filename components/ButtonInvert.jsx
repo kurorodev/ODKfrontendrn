@@ -13,15 +13,17 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#FFFFFF',
     borderRadius: 11,
-    paddingVertical: 12,
-    paddingHorizontal: 40,
+    height: 40,
+    width: 250,
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 45,
   },
   buttonText: {
     color: '#32435C',
+    fontFamily: 'Montserrat',
     fontSize: 14,
-    fontWeight: '800',
+    fontWeight: '80',
   },
 });
 

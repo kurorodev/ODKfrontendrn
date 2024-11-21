@@ -19,7 +19,7 @@ export default function ChatListScreen() {
     const fetchChats = async () => {
         try {
             const token = await AsyncStorage.getItem('jwtToken');
-            const response = await fetch(`http://192.168.1.7:8001/chats/?token=${token}`, {
+            const response = await fetch(`http://192.168.1.3:8001/chats/?token=${token}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -40,7 +40,7 @@ export default function ChatListScreen() {
 
         try {
             const token = await AsyncStorage.getItem('jwtToken');
-            const response = await fetch(`http://192.168.1.7:8001/chats/?token=${token}`, {
+            const response = await fetch(`http://192.168.1.3:8001/chats/?token=${token}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

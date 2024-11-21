@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ScrollView} from "react-native";
 import InfoCard from "../components/InfoCard";
 
 const infoCards = [
@@ -22,17 +22,19 @@ const infoCards = [
 
 function InformationScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Информация</Text>
-      {infoCards.map((card, index) => (
-        <InfoCard
-          key={index}
-          title={card.title}
-          iconUri={card.iconUri}
-          imageUri={card.imageUri}
-        />
-      ))}
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.header}>Информация</Text>
+        {infoCards.map((card, index) => (
+          <InfoCard
+            key={index}
+            title={card.title}
+            iconUri={card.iconUri}
+            imageUri={card.imageUri}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
