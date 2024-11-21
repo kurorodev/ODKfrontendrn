@@ -105,7 +105,7 @@ function PersonalInfoScreen() {
           }
         />
       ))}
-      <Button onPress={handleLogout}><Text textColor={"#000000"}>Выйти из профиля</Text></Button>
+      <Button onPress={handleLogout} title={"Выйти из профиля"}></Button>
     </View>
     </ScrollView>
     </LinearGradient>

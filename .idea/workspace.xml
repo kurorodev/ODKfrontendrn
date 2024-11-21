@@ -5,21 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb1014eb-d48e-4c86-9d83-d8fe8b1a8b3d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/ChatScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/ChatScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ChatDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/ChatDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/GigaChat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/GigaChat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/HomeScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/HomeScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/PersonalInfoScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/PersonalInfoScreen.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/InformationScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/InformationScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/LoginRegistrationScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/LoginRegistrationScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/SpravkaInformation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/SpravkaInformation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/SpravkaSelectionScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/SpravkaSelectionScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ButtonInvert.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ButtonInvert.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/PersonalHeader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/PersonalHeader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/PostSlider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/PostSlider.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/SpravkaItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SpravkaItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/GameService.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/GameService.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
