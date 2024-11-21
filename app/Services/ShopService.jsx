@@ -30,18 +30,9 @@ function ShopService() {
                         buttonText={"Купить"} 
                         cost={item.cost}
                         priceIcon= {priceIcon}
+                        onImageClick={()=>null}
                         //onPress={() => console.log(item.id)}
                     />
-                    // <ServicesItem 
-                    // key={item.id} 
-                    // title={item.title} 
-                    // icon={item.icon} // Используем локальную иконку
-                    // textColor={index === 3 ? '#E9F2FF' : '#162741'}
-                    // backgroundColor={
-                    //     index < 1 ? '#E9F2FF' : index < 3 ? '#B9D6F4' : '#162741'
-                    // }
-                    // onPress={() => onClick(item.screen,item.id)} // Обработчик нажатия
-                    // />
                 ))}
             </View>
         </ScrollView>

@@ -1,54 +1,38 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import WeekSchedule from '../../components/WeekSchedule';
+import * as React from "react";
+import { View, StyleSheet, Image, Text, ScrollView, Dimensions } from "react-native";
+import CalendarGrid from "../../components/CalendarGrid";
+import CalendarHeader from "../../components/CalendarHeader";
+import CalendarLegend from "../../components/CalendarLegend";
+import AddReminderButton from "../../components/AddReminderButton";
 
-const Schedule = () => {
-  const weeks = [
-    { number: 1, startDate: '2024-10-01' },
-    { number: 2, startDate: '2024-10-08' },
-    { number: 3, startDate: '2024-10-15' },
-    { number: 4, startDate: '2024-10-22' },
-  ];
+const { width, height } = Dimensions.get('window');
 
+function CalendarLayout() {
   return (
-    //<LinearGradient colors={['#0000FF', '#FFFFFF']} style={styles.container}>
     <ScrollView>
-    <View style={styles.scheduleContainer}>
-      <Text style={styles.monthTitle}>ОКТЯБРЬ 2024</Text>
-      {weeks.map((week) => (
-        <WeekSchedule key={week.number} weekNumber={week.number} startDate={week.startDate} />
-      ))}
+    <View style={styles.calendarContainer}>
+      <CalendarHeader />
+      <CalendarLegend />
+      <CalendarGrid />
+      <AddReminderButton />
     </View>
     </ScrollView>
-    //</LinearGradient>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  scheduleContainer: {
-    display: 'flex',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+  calendarContainer: {
+    display: "flex",
+    marginLeft: "auto",
+    marginRight: "auto",
     maxWidth: 480,
-    width: '100%',
-    paddingLeft: 6,
-    paddingRight: 6,
-    paddingTop: 112,
-    paddingBottom: 16,
-    flexDirection: 'column',
-    overflow: 'hidden',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1
-  },
-  monthTitle: {
-    color: 'rgba(21, 38, 64, 1)',
-    fontSize: 24,
-    fontWeight: '700',
-    letterSpacing: 0.02,
-  },
+    width: "100%",
+    paddingTop: width * 0.05,
+    paddingBottom: 99,
+    flexDirection: "column",
+    overflow: "hidden",
+    alignItems: "center",
+  }
 });
 
-export default Schedule;
+export default CalendarLayout;

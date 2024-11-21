@@ -91,7 +91,6 @@ const LoginRegistrationScreen = () => {
     <LinearGradient colors={['rgba(21, 38, 65, 1)', 'rgba(255, 255, 255, 1)']} style={styles.container_grad}>
     <ScrollView>
     <View style={styles.container}>
-      <Logo />
       <View style={styles.formContainer}>
         <Text style={styles.title}>Войти/Регистрация</Text>
         <TextInput label="Логин" placeholder="+7..." value={username} onChangeText={setUsername}/>

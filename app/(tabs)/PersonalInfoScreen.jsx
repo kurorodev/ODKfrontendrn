@@ -54,7 +54,8 @@ const personalInfoData = [
   {
     title: 'Карьерный трек',
     icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/4bba6ed85c288270aed9a799f3619c8120a9073028acd587f139b8bc23cafc65?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
-    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f65dc80fc84f00a7f0412afe43f15d5ac2aec3d5fb55d111c1d2e69251d2f45f?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594'
+    arrowIcon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/f65dc80fc84f00a7f0412afe43f15d5ac2aec3d5fb55d111c1d2e69251d2f45f?placeholderIfAbsent=true&apiKey=bd452a46e1dd4f208e6deef46c735594',
+    screen: 'CareerTrack'
   },
   {
     title: 'Заявки',

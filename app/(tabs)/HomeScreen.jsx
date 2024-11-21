@@ -9,7 +9,7 @@ import { useFonts } from 'expo-font';
 const categories = [
   { id: 1, title: 'Заказать справку', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/4a0b6282be994a9c30f38c41604ba91e4d52b759436ee4a11ff0b8d550ba8b4f?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e', screen: "SpravkaSelectionScreen"},
   { id: 2, title: 'Обучение', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/0b070a18ab5149be41f1085301260c8bfd6cf26b57cf4f3677db07c3811a0e75?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e', screen: "LearningSection"},
-  { id: 3, title: '3D-тур', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/91b816d1d9c2d243ea5b637d1b96949021285c41ef7dbada989eb965ff199bb1?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e' },
+  { id: 3, title: '3D-тур', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/91b816d1d9c2d243ea5b637d1b96949021285c41ef7dbada989eb965ff199bb1?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e', screen: "TourScreen"},
   { id: 4, title: 'Навигатор', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/a19d160a88b3b4dee69837fdd0975c948e2cea471497c4bcfea7c837d31978c3?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e', screen:"NavigatorScreen"},
   { id: 5, title: 'Инфо', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/ff126f05247caa824ea9292cd0dbc6cf1d51459e7764161cc799131e186af077?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e', screen: "InformationScreen" },
   { id: 6, title: 'Сервисы', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/008987770cd07ab2961be44b91a827d053423eeead00a1d2a7a194a51c53b681?placeholderIfAbsent=true&apiKey=65fdb1995dc140d08a5c47f604771c3e', screen: "Services" },
@@ -91,11 +91,10 @@ const styles = StyleSheet.create({
       fontSize: 32,
       lineHeight: 38.4,
       fontWeight: '700',
-      fontFamily: 'Montserrat'
     },
     chatBotButton: {
       borderRadius: 20,
-      backgroundColor: '#A8E4A0', // Устанавливаем цвет фона кнопки
+      backgroundColor: '#C5D8EC', // Устанавливаем цвет фона кнопки
       paddingVertical: 10, // Отступ по вертикали
       paddingHorizontal: 20, // Отступ по горизонтали
       marginTop: 10, // Отступ сверху
@@ -105,7 +104,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: '600',
       textAlign: 'center',
-      fontFamily: 'Montserrat'
     },
     categoryGrid: {
       flexDirection: 'row',

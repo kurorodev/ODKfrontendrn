@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TouchableHighlight} from 'react-native';
 
-function ShopItem({image, text, buttonText, cost, priceIcon}) {
+function ShopItem({id, image, text, buttonText, cost, priceIcon,onImageClick ,onAddClick}) {
 
     const onClick = () =>{
         console.log("shop item click")
     }
     return (
         <View style={styles.container}>
-          <Image 
-          source={{ uri: image }}
-          style={styles.image}
-          //resizeMode="contain"
-          />
+            <View>
+                <TouchableOpacity onPress={() => onImageClick(id)? onImageClick(id) : null}>
+                    <Image 
+                    source={{ uri: image }}
+                    style={styles.image}
+                    />
+                </TouchableOpacity>
+            </View>
             <View style={styles.textView}>
                 <Text style={styles.mainText}>{text}</Text>
                 <View style={styles.priceContainer}>
@@ -23,7 +26,7 @@ function ShopItem({image, text, buttonText, cost, priceIcon}) {
                     />
                 </View>
             </View>
-        <TouchableOpacity style={styles.button} onPress={onClick}>
+        <TouchableOpacity style={styles.button} onPress={() => onAddClick(id)}>
                 <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
       </View>

@@ -1,35 +1,31 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { YaMap } from 'react-native-yamap';
-
-const NavigatorScreen = () => {
-    useEffect(() => {
-        // Инициализация API карт при монтировании компонента
-        YaMap.init('5c36083f-0be3-48d4-b32c-f6c867ad87bc');
-    }, []);
-
-    return (
-        <View style={styles.container}>
-            <YaMap 
-                style={styles.map}
-                userLocationIcon={{ uri: 'https://www.example.com/marker.png' }}
-                initialRegion={{
-                    lat: 53.2415041,  // Координаты Самары
-                    lon: 50.2212463,
-                    zoom: 12,
-                }}
-            />
-        </View>
-    );
-};
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import { View, StyleSheet, Image, Text, SafeAreaView, ActivityIndicator,MapWrapper} from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-    }
+ container: {
+   ...StyleSheet.absoluteFillObject,
+   height: "100%",
+   width: "100%",
+   justifyContent: 'flex-end',
+   alignItems: 'center',
+ },
+ map: {
+   ...StyleSheet.absoluteFillObject,
+ },
 });
-export default NavigatorScreen;
+
+export default () => (
+   <View style={styles.container}>
+     <MapView
+       style={styles.map}
+       mapType="hybrid" // Изменение типа карты на спутниковый
+       region={{
+        latitude: 53.2058038772891, // широта Самары
+        longitude: 50.275527571919994, // долгота Самары
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121,
+       }}
+     >
+     </MapView>
+   </View>
+);
