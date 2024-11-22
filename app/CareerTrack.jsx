@@ -1,11 +1,15 @@
 import React from 'react';
-import { StyleSheet, Image, View, Dimensions } from 'react-native';
+import { StyleSheet, Image, View, Dimensions, ScrollView } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const FullScreenImage = () => {
   return (
+    <ScrollView>
     <View style={styles.container}>
-      <Image source={{ uri: require('../assets/careertrack.png') }} style={styles.image} resizeMode="cover" />
+      <Image source={require('../assets/careertrack (2).png') } style={styles.image} resizeMode="cover" />
     </View>
+    </ScrollView>
   );
 };
 
@@ -16,8 +20,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: width * 1,
+    height: height * 1,
   },
 });
 

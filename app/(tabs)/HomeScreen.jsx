@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
       fontSize: 32,
       lineHeight: 38.4,
       fontWeight: '700',
+      fontFamily: 'Montserrat'
     },
     chatBotButton: {
       borderRadius: 20,
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: '600',
       textAlign: 'center',
+      fontFamily: 'Montserrat'
     },
     categoryGrid: {
       flexDirection: 'row',
